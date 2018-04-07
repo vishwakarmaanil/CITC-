@@ -32,17 +32,17 @@ public class OneAway
 			}
 			index2++;
 		}
-
+		
 		return true;
 	}
 
 	public static void main(String args[])
 	{
 		OneAway a = new OneAway();
-		System.out.println(a.check("pale", " ple"));
-		System.out.println(a.check("pales", " pale"));
-		System.out.println(a.check("pale", " bale"));
-		System.out.println(a.check("pale", " bae"));
+		System.out.println(a.check("pale", "pales"));
+		System.out.println(a.check("pales", "pales"));
+		System.out.println(a.check("pale", "bale"));
+		System.out.println(a.check("pale", "bae"));
 
 	}
 }
