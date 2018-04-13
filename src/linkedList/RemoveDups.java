@@ -12,7 +12,11 @@ public class RemoveDups
 		list.add(1);
 		list.add(15);
 		list.add(12);
-		list.add(-1);
 		list.display();
+		// list.removeDups();
+		// list.removeDups1();
+		System.out.println("\n");
+		list.ktonth(2);
+
 	}
 }
