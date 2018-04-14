@@ -94,25 +94,45 @@ class LinkedListTest
 
 	public void ktonth(int k)
 	{
+		Node temp1 = head;
+		Node temp2 = head;
+		for (int i = 0; i < k; i++)
+		{
+			if (temp1 == null)
+				return;
+			temp1 = temp1.next;
+		}
+		while (temp1 != null)
+		{
+			temp1 = temp1.next;
+			temp2 = temp2.next;
+		}
+		System.out.println(temp2.data + "  ");
+	}
+
+	public void deleteMidNode()
+	{
 		Node temp = head;
 		int length = 0;
+		if (head == null)
+			return;
 		while (temp.next != null)
 		{
 			length++;
 			temp = temp.next;
 		}
-
-		int count = length;
 		temp = head;
-		while (temp != null)
+		for (int i = 0; i < (length / 2); i++)
 		{
-			if (count < (length - k))
-			{
-				System.out.print(temp.data + "  ");
-			}
-			count--;
 			temp = temp.next;
 		}
-
+		
+		Node mid = temp;
+		Node newNode = mid.next;
+		mid.data = newNode.data;
+		mid.next = newNode.next;
+		
+		
 	}
+
 }
