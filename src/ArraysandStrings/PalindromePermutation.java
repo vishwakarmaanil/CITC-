@@ -1,3 +1,4 @@
+package ArraysandStrings;
 public class PalindromePermutation
 {
 	boolean check(String str)

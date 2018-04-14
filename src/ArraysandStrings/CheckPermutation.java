@@ -1,3 +1,4 @@
+package ArraysandStrings;
 // one string is permutation of other
 public class CheckPermutation
 {

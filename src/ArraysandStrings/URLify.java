@@ -1,3 +1,4 @@
+package ArraysandStrings;
 //replace spaces with string '%20' == String Manipulation problem
 
 public class URLify

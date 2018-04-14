@@ -1,3 +1,4 @@
+package ArraysandStrings;
 import java.util.*;
 
 public class Unique
