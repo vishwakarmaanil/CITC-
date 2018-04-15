@@ -126,13 +126,80 @@ class LinkedListTest
 		{
 			temp = temp.next;
 		}
-		
+
 		Node mid = temp;
 		Node newNode = mid.next;
 		mid.data = newNode.data;
 		mid.next = newNode.next;
-		
-		
 	}
 
+	public void partition(int x)
+	{
+		Node beforeStart = null;
+		Node afterStart = null;
+		Node beforeEnd = null;
+		Node afterEnd = null;
+		Node temp = head;
+		while (temp != null)
+		{
+
+			if (temp.data < x)
+			{
+				if (beforeStart == null)
+				{
+					beforeStart = temp;
+					beforeEnd = beforeStart;
+				} else
+				{
+					beforeEnd.next = temp;
+					beforeEnd = temp;
+				}
+			} else
+			{
+				if (afterStart == null)
+				{
+					afterStart = temp;
+					afterEnd = afterStart;
+				} else
+				{
+					afterEnd.next = temp;
+					afterEnd = temp;
+				}
+			}
+			temp = temp.next;
+		}
+		if (beforeEnd != null)
+			beforeEnd.next = afterStart;
+
+		while (beforeStart != null)
+		{
+			System.out.print(beforeStart.data + " ");
+			beforeStart = beforeStart.next;
+		}
+
+	}
+
+	public void partition1(int x)
+	{
+		Node temp = head;
+		Node newNode1 = head;
+		Node newNode2 = head;
+
+		while (temp != null)
+		{
+			if (temp.data < x)
+			{
+				temp.next = newNode1;
+				newNode1 = temp;
+
+			} else
+			{
+				newNode2.next = temp;
+				newNode2 = temp;
+			}
+			temp = temp.next;
+			System.out.println(temp.data + " ");
+		}
+
+	}
 }
