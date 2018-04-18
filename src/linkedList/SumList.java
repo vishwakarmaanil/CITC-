@@ -1,10 +1,14 @@
 package linkedList;
 
+import java.util.Stack;
+
+import linkedList.SumList.Node;
+
 class SumList
 {
-	static Node head1, head2;
+	public static Node head1, head2;
 
-	static class Node
+	public static class Node
 	{
 
 		int data;
@@ -17,11 +21,7 @@ class SumList
 		}
 	}
 
-	/*
-	 * Adds contents of two linked lists and return the head node of resultant list
-	 */
-
-	void printList(Node head)
+	public void printList(Node head)
 	{
 		while (head != null)
 		{
@@ -38,28 +38,82 @@ class SumList
 		// creating first list
 		list.head1 = new Node(7);
 		list.head1.next = new Node(1);
-		list.head1.next.next = new Node(6);
+		list.head1.next.next = new Node(2);
+		list.head1.next.next.next = new Node(1);
+		list.head1.next.next.next.next = new Node(7);
 		System.out.print("First List is ");
 		list.printList(head1);
 
 		// creating seconnd list
-		list.head2 = new Node(5);
-		list.head2.next = new Node(9);
-		list.head2.next.next = new Node(2);
-		System.out.print("Second List is ");
-		list.printList(head2);
-		int carry = 0;
+		// list.head2 = new Node(5);
+		// list.head2.next = new Node(9);
+		// list.head2.next.next = new Node(2);
+		// System.out.print("Second List is ");
+		// list.printList(head2);
+		// int carry = 0;
 		// add the two lists and see the result
-		Node rs = list.addTwoLists(head1, head2, carry);
-		System.out.print("Resultant List is ");
-		list.printList(rs);
+		// Node rs = list.addTwoLists(head1, head2, carry);
+		// Node rs1 = list.addTwoLists2(head1, head2);
+		// boolean rs1 = isPalindrome(head1);
+		boolean rs1 = isPalindromewithStack(head1);
+		System.out.print("Resultant List is " + rs1);
+		// list.printList(rs1);
+	}
+
+	private static boolean isPalindrome(Node node)
+	{
+		Node temp = null;
+		Node temp2 = node;
+		while (node != null)
+		{
+			Node newNode = new Node(node.data);
+			newNode.next = temp;
+			temp = newNode;
+			node = node.next;
+		}
+
+		while (temp != null && temp2 != null)
+		{
+
+			if (temp.data != temp2.data)
+			{
+				return false;
+			}
+			temp = temp.next;
+			temp2 = temp2.next;
+		}
+		return true;
+	}
+
+	private static boolean isPalindromewithStack(Node node)
+	{
+		Node temp = node;
+		Stack<Integer> stack = new Stack<Integer>();
+
+		while (node != null)
+		{
+			stack.push(node.data);
+			node = node.next;
+		}
+
+		while (temp != null)
+		{
+			if (stack.peek() != temp.data)
+			{
+				return false;
+			}
+			stack.pop();
+			temp = temp.next;
+		}
+
+		return true;
 	}
 
 	private Node addTwoLists(Node head1, Node head2, int carry)
 	{
 		if (head1 == null && head2 == null && carry == 0)
 			return null;
-		
+
 		int value = carry;
 		if (head1 != null)
 			value += head1.data;
@@ -76,4 +130,64 @@ class SumList
 		}
 		return result;
 	}
+
+	Node addTwoLists2(Node first, Node second)
+	{
+		Node res = null; // res is head node of the resultant list
+		Node prev = null;
+		Node temp = null;
+		int carry = 0, sum;
+
+		while (first != null || second != null) // while both lists exist
+		{
+			// Calculate value of next digit in resultant list.
+			// The next digit is sum of following things
+			// (i) Carry
+			// (ii) Next digit of first list (if there is a next digit)
+			// (ii) Next digit of second list (if there is a next digit)
+			sum = carry + (first != null ? first.data : 0) + (second != null ? second.data : 0);
+
+			// update carry for next calulation
+			carry = (sum >= 10) ? 1 : 0;
+
+			// update sum if it is greater than 10
+			sum = sum % 10;
+
+			// Create a new node with sum as data
+			temp = new Node(sum);
+
+			// if this is the first node then set it as head of
+			// the resultant list
+			if (res == null)
+			{
+				res = temp;
+			} else // If this is not the first node then connect it to the rest.
+			{
+				prev.next = temp;
+			}
+
+			// Set prev for next insertion
+			prev = temp;
+
+			// Move first and second pointers to next nodes
+			if (first != null)
+			{
+				first = first.next;
+			}
+			if (second != null)
+			{
+				second = second.next;
+			}
+		}
+
+		if (carry > 0)
+		{
+			temp.next = new Node(carry);
+		}
+
+		// return head of the resultant list
+		return res;
+	}
+
+x
 }
