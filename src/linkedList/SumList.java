@@ -2,6 +2,7 @@ package linkedList;
 
 import java.util.Stack;
 
+import linkedList.Intersectio.Result;
 import linkedList.SumList.Node;
 
 class SumList
@@ -131,6 +132,61 @@ class SumList
 		return result;
 	}
 
+	public class Result
+	{
+		public Node tail;
+		public int size;
+
+		public Result(Node tail, int size)
+		{
+			this.tail = tail;
+			this.size = size;
+		}
+	}
+
+	public Result getTailandSize(Node node)
+	{
+		int size = 0;
+		while (node != null)
+		{
+			node = node.next;
+			size++;
+		}
+		return new Result(node, size);
+	}
+
+	public Node findKth(Node node, int k)
+	{
+		while (node != null && k > 0)
+		{
+			node = node.next;
+			k--;
+		}
+		return node;
+	}
+
+	public int isIntersection(Node h1, Node h2)
+	{
+		if (h1 == null || h2 == null)
+			return 0;
+
+		Result r1 = getTailandSize(h1);
+		Result r2 = getTailandSize(h2);
+
+		Node longer = r1.size > r2.size ? h1 : h2;
+		Node shorter = r2.size > r1.size ? h2 : h1;
+
+		longer = findKth(longer, Math.abs(r1.size - r2.size));
+
+		while (shorter != longer)
+		{
+			shorter = shorter.next;
+			longer = longer.next;
+		}
+		return longer.data;
+	}
+	
+	
 	Node addTwoLists2(Node first, Node second)
 	{
 		Node res = null; // res is head node of the resultant list
@@ -188,6 +244,4 @@ class SumList
 		// return head of the resultant list
 		return res;
 	}
-
-x
 }
