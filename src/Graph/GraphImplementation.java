@@ -1,4 +1,4 @@
-package BST;
+package Graph;
 
 import java.util.LinkedList;
 
